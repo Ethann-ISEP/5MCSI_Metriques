@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Activité des Commits</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+  <body>
+    <h2>Répartition de mes Commits par minute</h2>
+    <div id="chart_div" style="width: 100%; height: 500px;"></div>
+
+    <script>
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        fetch('/api/commits/')
+          .then(response => response.json())
+          .then(data => {
+            
+            var dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('number', 'Minute'); // L'axe X est un nombre (0 à 59)
+            
+            // On ajoute les données récupérées (liste de minutes)
+            // Note: data.results est une liste de listes ex: [[12], [45], [12]]
+            dataTable.addRows(data.results);
+
+            var options = {
+              title: 'Fréquence des commits selon la minute de l\'heure',
+              legend: { position: 'none' },
+              histogram: { bucketSize: 5 }, // Regroupe par tranches de 5 minutes
+              colors: ['#4285F4'],
+              hAxis: { title: 'Minute de l\'heure (0-59)' },
+              vAxis: { title: 'Nombre de Commits' }
+            };
+
+            var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
+            chart.draw(dataTable, options);
+          });
+      }
+    </script>
+  </body>
+</html>
