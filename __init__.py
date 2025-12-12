@@ -34,6 +34,27 @@ def meteo():
 @app.route('/')
 def hello_world():
     return render_template('hello.html')
+@app.route('/commits/')
+def page_commits():
+    return render_template("commits.html")
+
+
+@app.route('/api/commits/')
+def get_commits_data():
+    # REMPLACE CI-DESSOUS PAR TON PSEUDO ET LE NOM DE TON REPO !
+    # Exemple : https://api.github.com/repos/JeanDupont/Metriques/commits
+    url = "https://api.github.com/repos/{TON_PSEUDO}/{TON_REPO}/commits"
+    
+    try:
+        response = urlopen(url)
+        raw_content = response.read()
+        json_content = json.loads(raw_content.decode('utf-8'))
+        minutes_list = []
+        for commit_element in json_content:
+            date_string = commit_element['commit']['author']['date']
+            date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
+            minutes_list.append([date_object.minute]) 
+        return jsonify(results=minutes_list)
   
 if __name__ == "__main__":
   app.run(debug=True)
