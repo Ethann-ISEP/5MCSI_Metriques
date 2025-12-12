@@ -43,7 +43,7 @@ def page_commits():
 def get_commits_data():
     # REMPLACE CI-DESSOUS PAR TON PSEUDO ET LE NOM DE TON REPO !
     # Exemple : https://api.github.com/repos/JeanDupont/Metriques/commits
-    url = "https://api.github.com/repos/{TON_PSEUDO}/{TON_REPO}/commits"
+    url = "https://api.github.com/repos/Ethann-ISEP/5MCSI_Metriques/commits"
     
     try:
         response = urlopen(url)
