@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Histogramme Météo</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+  <body>
+    <h2>Histogramme des températures</h2>
+    <div id="chart_div" style="width: 100%; height: 500px;"></div>
+
+    <script>
+      google.charts.load('current', { packages: ['corechart'] });
+      google.charts.setOnLoadCallback(drawBackgroundColor);
+
+      function drawBackgroundColor() {
+        
+        function drawChart(data) {
+            // Création du tableau de données
+            var dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('string', 'Date');
+            dataTable.addColumn('number', 'Température');
+
+            // Remplissage avec les données de l'API
+            data.results.forEach(entry => {
+              var date = new Date(entry.Jour * 1000);
+              dataTable.addRow([date.toLocaleDateString(), entry.temp]);
+            });
+
+            // Options du graphique
+            var options = {
+              title: 'Températures à Tawarano (Histogramme)',
+              legend: { position: 'none' }, // On cache la légende pour ce type de graph
+              colors: ['#e7711b'] // J'ai mis une couleur orange pour changer ;)
+            };
+
+            // C'EST ICI QUE CA CHANGE : ColumnChart au lieu de LineChart
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(dataTable, options);
+        }
+
+        // Appel de ton API (la même que l'exercice 3)
+        fetch('/tawarano/')
+            .then(response => response.json())
+            .then(data => {
+              drawChart(data);
+            });
+      }
+    </script>
+  </body>
+</html>
