@@ -1,0 +1,27 @@
+name: Analyse SonarQube
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Important pour l'analyse
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          # REMPLACE CI-DESSOUS PAR LA CLE DU PROJET SONARQUBE (Etape 1)
+          args: >
+            -Dsonar.projectKey=Metriques_Ethann
+            -Dsonar.sources=.
