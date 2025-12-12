@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; 
+            background-color: #f4f4f9;      
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            width: 500px;                   
+            margin: 50px auto;              
+            background-color: white;        
+            padding: 30px;
+            border: 1px solid #ddd;         
+            border-radius: 5px;             
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;                   
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;       
+        }
+        button {
+            background-color: #3498db;     
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;      
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Me laisser un message</h2>
+        <form>
+            <label>Nom :</label>
+            <input type="text" name="nom" required>
+
+            <label>Prénom :</label>
+            <input type="text" name="prenom" required>
+
+            <label>Message :</label>
+            <textarea name="message" rows="5" required></textarea>
+
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+
+</body>
+</html>
