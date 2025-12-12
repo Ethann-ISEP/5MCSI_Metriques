@@ -23,5 +23,5 @@ jobs:
         with:
           # REMPLACE CI-DESSOUS PAR LA CLE DU PROJET SONARQUBE (Etape 1)
           args: >
-            -Dsonar.projectKey=Metriques_Ethann
+            -Dsonar.projectKey=Metriques-Ethann
             -Dsonar.sources=.
